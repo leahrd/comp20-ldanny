@@ -8,10 +8,10 @@ body{
        body {
        	    /*background-color:blue;*/	    
             .software {
-	    	      width: 128px;
-		      height: 240px;
        	    	      background: url(../software.png);
 		      display: inline-block;
+		      height: 240px;
+	    	      width: 128px;
 		      }	      
 	}
 }
