@@ -7,8 +7,8 @@ body{
        body {
        	    /*background-color:blue;*/	    
             .software {
-	    	      width:128;
-		      height:240;
+	    	      width:128px;
+		      height:240px;
        	    	      background:url(../software.png) 0 0px;}
 	    }
 }
