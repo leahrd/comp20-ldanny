@@ -5,10 +5,10 @@ body{
 
 @media screen and (min-width:1200px) {
        body {
-       	    /* background-color:blue;*/	    
+       	    background-color:blue;	    
             .software {
 	    	      width:128;
 		      height:480;
-       	    	      background:img(../software.png) 0 0px;}
+       	    	      background:url(../software.png) 0 0px;}
 	    }
 }
