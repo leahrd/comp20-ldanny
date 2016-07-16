@@ -1,4 +1,8 @@
 
+body{
+	background-color:pink;
+}
+
 @media screen and (min-device-width:1200px) {
        body {
               .software {width:128; height:480;
