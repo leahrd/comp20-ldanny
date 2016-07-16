@@ -9,6 +9,6 @@ body{
             .software {
 	    	      width:128;
 		      height:480;
-       	    	      background:url(../software.png) 0 0px;}
+       	    	      background:img(../software.png) 0 0px;}
 	    }
 }
