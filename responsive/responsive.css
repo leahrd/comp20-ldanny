@@ -1,5 +1,6 @@
 
 @media screen
-       and (min-device-width:1200px)
+       and (min-device-width:1200px){
        .customer {width:128; height:480;
        background:url(../software.png) 0 0px
+}
