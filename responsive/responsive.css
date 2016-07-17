@@ -27,8 +27,8 @@ body{
 
 @media screen and (min-width:1000) and (max-width:1099){
        div{
-	background: url(./software.png) -256px 0;
-	height: 240px;
-	width 128px;
+		background: url(./software.png) -256px 0;
+		height: 240px;
+		width 128px;
 	}
 }
