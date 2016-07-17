@@ -33,6 +33,34 @@ body{
 	   width: 128px;
 	   }
 
+@media screen and (min-width:900px) and (max-width:999px) {
+       div {
+       	   background: url(./software.png) -384px 0;
+	  /* background-position: -128px 0 px;*/
+	   height: 240px;
+	   width: 128px;
+	   }
+@media screen and (min-width:800px) and (max-width:899px) {
+       div {
+       	   background: url(./software.png) -512px 0;
+	  /* background-position: -128px 0 px;*/
+	   height: 240px;
+	   width: 128px;
+	   }
+@media screen and (min-width:700px) and (max-width:799px) {
+       div {
+       	   background: url(./software.png) 0px -240;
+	  /* background-position: -128px 0 px;*/
+	   height: 240px;
+	   width: 128px;
+	   }
+
+
+
+
+
+
+
 /*
 @media screen and (min-width:1000px) and (max-width:1099px) {
        div {
