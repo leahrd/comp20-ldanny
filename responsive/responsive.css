@@ -12,7 +12,6 @@
 @media screen and (min-width:1100px) and (max-width:1199px) {
        div {
        	   background: url(./software.png) -128px 0;
-	  /* background-position: -128px 0 px;*/
 	   height: 240px;
 	   width: 128px;
 	   }
@@ -21,7 +20,6 @@
 @media screen and (min-width:1000px) and (max-width:1099px) {
        div {
        	   background: url(./software.png) -256px 0;
-	  /* background-position: -128px 0 px;*/
 	   height: 240px;
 	   width: 128px;
 	   }
@@ -29,7 +27,6 @@
 @media screen and (min-width:900px) and (max-width:999px) {
        div {
        	   background: url(./software.png) -384px 0;
-	  /* background-position: -128px 0 px;*/
 	   height: 240px;
 	   width: 128px;
 	   }
@@ -37,7 +34,6 @@
 @media screen and (min-width:800px) and (max-width:899px) {
        div {
        	   background: url(./software.png) -512px 0;
-	  /* background-position: -128px 0 px;*/
 	   height: 240px;
 	   width: 128px;
 	   }
@@ -45,7 +41,6 @@
 @media screen and (min-width:700px) and (max-width:799px) {
        div {
        	   background: url(./software.png) 0 -240px;
-	  /* background-position: -128px 0 px;*/
 	   height: 240px;
 	   width: 128px;
 	   }
@@ -54,7 +49,6 @@
 @media screen and (min-width:600px) and (max-width:699px) {
        div {
        	   background: url(./software.png) -128px -240px;
-	  /* background-position: -128px 0 px;*/
 	   height: 240px;
 	   width: 128px;
 	   }
@@ -63,7 +57,6 @@
 @media screen and (min-width:500px) and (max-width:599px) {
        div {
        	   background: url(./software.png) -256px -240px;
-	  /* background-position: -128px 0 px;*/
 	   height: 240px;
 	   width: 128px;
 	   }
@@ -72,7 +65,6 @@
 @media screen and (min-width:400px) and (max-width:499px) {
        div {
        	   background: url(./software.png) -384px -240px;
-	  /* background-position: -128px 0 px;*/
 	   height: 240px;
 	   width: 128px;
 	   }
@@ -81,19 +73,11 @@
 @media screen and (max-width:400px) {
        div {
        	   background: url(./software.png) -512px -240px;
-	  /* background-position: -128px 0 px;*/
 	   height: 240px;
 	   width: 128px;
 	   }
 }
 
 
-/*
-@media screen and (min-width:1000px) and (max-width:1099px) {
-       div {
-       	   background: url(./software.png) -256px 0;
-	   height: 240px;
-	   width 128px;
-	}
-}*/
+
 
