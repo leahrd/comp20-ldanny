@@ -85,7 +85,7 @@ body{
 	   }
 }
 
-@media screen and (min-width:400px) {
+@media screen and (max-width:400px) {
        div {
        	   background: url(./software.png) -512px -240px;
 	  /* background-position: -128px 0 px;*/
