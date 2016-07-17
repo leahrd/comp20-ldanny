@@ -28,7 +28,17 @@ body{
 @media screen and (min-width:1000px) and (max-width:1099px) {
        div {
        	   background: url(./software.png) -256px 0;
+	  /* background-position: -128px 0 px;*/
+	   height: 240px;
+	   width: 128px;
+	   }
+
+/*
+@media screen and (min-width:1000px) and (max-width:1099px) {
+       div {
+       	   background: url(./software.png) -256px 0;
 	   height: 240px;
 	   width 128px;
 	}
-}
+}*/
+
