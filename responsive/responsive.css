@@ -7,12 +7,12 @@ body{
 @media screen and (min-width:1200px) {
        div {
 
-                 /* .software {*/
+                 .software {
        	    	     /* background-color:blue;*/	    
        	    	      background-image: url(./software.png);
 		      height: 240px;
 	    	      width: 128px;
-		    /* }*/	      
+		     }      
 	}
 }
 
