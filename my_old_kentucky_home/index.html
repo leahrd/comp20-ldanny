@@ -34,8 +34,9 @@
  
   var player = document.getElementById("lyrics");
   document.write("I am about to call read!");
-  player.addEventListener("timeupdate", read(player.currentTime));
+  player.addEventListener("timeupdate", function() {read(player.currentTime)});
   
+//end of working code
 
 
 
@@ -43,8 +44,7 @@
 
 
 
-
-
+//Below is a bunch of rambling.  Ignore.
 /*
   words = [];
   words[0] = 'The sun shines bright in My Old Kentucky Home, ';
