@@ -1,1 +1,100 @@
-#index
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>My Old Kentucky Home</title>
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+<h1 id="title">My Old Kentucky Home</h1>
+
+<video src="https://www.cs.tufts.edu/comp/20/my_old_kentucky_home.mp4" id="music_video" controls></video>
+<div id="lyrics"></div>
+
+<script>
+  // Complete this section and create a CSS file named style.css
+
+  //This is my working code!!
+  
+  document.write("Do you see me?");
+  
+  function read(currentTime){
+  document.write("Am in the read function?");
+  words = [];
+  words[0] = 'The sun shines bright in My Old Kentucky Home,'  
+//  document.write(player.currentTime);
+  console.log(player.currentTime);
+  if (player.currentTime < 4){
+    document.write("I'm in the if statement!");
+	document.write(words[0]);
+	}
+  }
+ 
+  var player = document.getElementById("lyrics");
+  document.write("I am about to call read!");
+  player.addEventListener("timeupdate", read(player.currentTime));
+  
+
+
+
+
+
+
+
+
+
+/*
+  words = [];
+  words[0] = 'The sun shines bright in My Old Kentucky Home, ';
+  words[1] = 'Tis summer, the people are gay ';
+  //console.log(words[1,2]);
+
+
+
+//these 9 lines were commented
+  function read(fun,a){
+  for(i = 0; i < a.length; i++){
+	a[i] = fun(a[i]);
+	}
+  }
+
+  read( function(someValue) {
+	document.write(someValue)
+  },words);
+
+  function read(words){
+	for(i = 0; i < words.length; i++){
+		       document.write(words[i]);
+		       }
+	}
+
+  
+  var player = document.getElementById("lyrics");//trying to add time stamp
+  //player.currentTime = 2;
+  player.addEventListener("playing", read(words[0]));
+
+
+//try adding next time stamp
+//these three lines were commented
+  function delayed_read(words){
+	setTimeout(read, 3000)
+}
+
+
+
+//this code works
+  var player = document.getElementById("lyrics");
+//  player.currentTime = 10;
+  player.addEventListener("playing", read(words[1])
+  );
+
+//these two lines were commented
+  var player = document.getElementsByTagName("lyrics")[0];
+  player.addEventListener("playing", read(words[0]), true);
+
+*/
+</script>
+</body>
+</html>
