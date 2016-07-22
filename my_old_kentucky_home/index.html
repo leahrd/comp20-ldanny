@@ -18,24 +18,79 @@
 
   //This is my working code!!
   
-  document.write("Do you see me?"); //Test output
-  
+  console.log("Do you see me?"); //Test output
+    
   function read(currentTime){
-  document.write("Am in the read function?"); //Test output
+  console.log("Am in the read function?"); //Test output
+  var player = document.getElementById("lyrics");
+  player.innerHTML = v.currentTime;
   words = [];
   words[0] = 'The sun shines bright in My Old Kentucky Home,'  
-  document.write(player.currentTime); //Test output
-  //  console.log(player.currentTime);
-  if (player.currentTime < 4){
-	document.write("I'm in the if statement!"); //Test output
-	document.write(words[0]);
+  words[1] = 'Tis summer, the people are gay'
+  words[2] = 'The corn-tops ripe and the meadows in the bloom'
+  words[3] = 'While the birds make music all the day.'
+  words[4] = 'The young folks roll on the little cabin floor,'
+  words[5] = 'All merry, all happy and bright'
+  words[6] = 'By n by hard times comes a knocking at the door,'
+  words[7] = 'Then My Old Kentucky Home, good night!'
+  words[8] = 'Then My Old Kentucky Home, good night!'
+  words[9] = 'Oh weep no more today'
+  words[10] = 'We will sing one song'
+  words[11] = 'For My Old Kentucky Home'
+  words[12] = 'For My Old Kentucky Home, far away'
+
+  //document.write(player.currentTime); //Test output
+    console.log(v.currentTime);
+  if (v.currentTime < 9){
+	document.getElementById("lyrics").innerHTML = " ";
 	}
-  }
- 
-  var player = document.getElementById("lyrics");
-  document.write("I am about to call read!");  //Test output
-  player.addEventListener("timeupdate", function() {read(player.currentTime)});
-  
+  if (v.currentTime >9 && v.currentTime < 14){
+	console.log("I'm in the if statement!"); //Test output
+	//document.write(words[0]);
+	document.getElementById("lyrics").innerHTML = words[0];
+	}
+  if (v.currentTime >14 && v.currentTime <22){
+	document.getElementById("lyrics").innerHTML = words[1];
+	}
+  if (v.currentTime > 22 && v.currentTime < 28){
+	document.getElementById("lyrics").innerHTML = words[2];
+	}
+  if (v.currentTime > 28 && v.currentTime < 34){
+	document.getElementById("lyrics").innerHTML = words[3];
+	}
+  if (v.currentTime > 34 && v.currentTime < 43){
+	document.getElementById("lyrics").innerHTML = words[4];
+	}
+  if (v.currentTime > 43 && v.currentTime < 47){
+	document.getElementById("lyrics").innerHTML = words[5];
+	}
+  if (v.currentTime > 47 && v.currentTime < 55){
+	document.getElementById("lyrics").innerHTML = words[6];
+	}
+  if (v.currentTime > 55 && v.currentTime < 62){
+	document.getElementById("lyrics").innerHTML = words[7];
+	}
+  if (v.currentTime > 62 && v.currentTime < 68){
+	document.getElementById("lyrics").innerHTML = words[8];
+	}
+  if (v.currentTime > 68 && v.currentTime < 72){
+	document.getElementById("lyrics").innerHTML = words[9];
+	}
+  if (v.currentTime > 72 && v.currentTime < 80){
+	document.getElementById("lyrics").innerHTML = words[10];
+	}
+  if (v.currentTime > 80 && v.currentTime < 84){
+	document.getElementById("lyrics").innerHTML = words[11];
+	}
+  if (v.currentTime > 84 && v.currentTime < 93){
+	document.getElementById("lyrics").innerHTML = words[12];
+	}
+} 
+  //var player = document.getElementById("lyrics");
+  var v = document.getElementById("music_video");
+  //document.write("I am about to call read!");  //Test output
+  v.addEventListener("timeupdate", function() {read(v.currentTime)});
+ // player.addEventListener("timeudpdate", read(player.currentTime));
 //end of working code
 
 
