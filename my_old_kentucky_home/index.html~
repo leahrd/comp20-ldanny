@@ -107,7 +107,7 @@
 	document.getElementById("lyrics").innerHTML = words[12];
 	}
   if (v.currentTime > 90){
-	document.getElementById("lyrics").innerHTML = '<img src="./horse.png">';
+	//document.getElementById("lyrics").innerHTML = '<img src="./horse.png">';
 	} 
 }
   //var player = document.getElementById("lyrics");
