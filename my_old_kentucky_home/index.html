@@ -18,22 +18,22 @@
 
   //This is my working code!!
   
-  document.write("Do you see me?");
+  document.write("Do you see me?"); //Test output
   
   function read(currentTime){
-  document.write("Am in the read function?");
+  document.write("Am in the read function?"); //Test output
   words = [];
   words[0] = 'The sun shines bright in My Old Kentucky Home,'  
-  document.write(player.currentTime);
-//  console.log(player.currentTime);
+  document.write(player.currentTime); //Test output
+  //  console.log(player.currentTime);
   if (player.currentTime < 4){
-    document.write("I'm in the if statement!");
+	document.write("I'm in the if statement!"); //Test output
 	document.write(words[0]);
 	}
   }
  
   var player = document.getElementById("lyrics");
-  document.write("I am about to call read!");
+  document.write("I am about to call read!");  //Test output
   player.addEventListener("timeupdate", function() {read(player.currentTime)});
   
 //end of working code
