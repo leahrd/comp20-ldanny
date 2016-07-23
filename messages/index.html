@@ -9,6 +9,26 @@
     function parse() {
       jsonData = '[{"id":1,"content":"Do you really want to hurt me?","username":"Boy"},{"id":2,"content":"Do you really want to make me cry?","username":"George"}]';
       // Your code here......
+    //var s = JSON.stringify(jsonData);
+    //console.log(s);
+    //console.log(jsonData);
+    var text = JSON.parse(jsonData);
+    //console.log(text);
+    //var contentResult = text.content;
+    //var contentResult = jsonData["content"];
+    //console.log(contentResult);
+    //console.log(text.content);
+    //var usernameResult = text.username;
+    //console.log(usernameResult);
+
+    //console.log(text["username"]);
+    //console.log(text.content + " " + text.username);
+    //console.log(text[0].content);
+    //console.log(text[0].username);
+    //console.log(text[1].content);
+    //console.log(text[1].username);
+    document.getElementById("messages").innerHTML = text[0].content + " " + text[0].username + "<br />" + text[1].content + " " + text[1].username;
+//    document.getElementById("messages").innerHTML = text[1].content + " " + text[1].username;
     }
   </script>
 </head>
