@@ -1,6 +1,4 @@
-//maybe connect css file
 
-console.log("I'm about to start the mapping function");
      function mapping(){
 	 console.log("I'm in the mapping function!");
 	 var map = new google.maps.Map(document.getElementById('map'), {
@@ -10,16 +8,14 @@ console.log("I'm about to start the mapping function");
 	     });
 	 var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
 
-	 //function addMarker(feature){
+
 	 //South Station
 	 var marker = new google.maps.Marker({
 		 position: {lat:42.352, lng: -71.055},
-		 //position:feature.position,
 		 map: map,
 		 icon: image
-
 		 });
-	 // }
+
 	 //Porter Square
 	 var marker2 = new google.maps.Marker({
 		 position: {lat:42.3884,lng:-71.11914899999999},
@@ -206,20 +202,6 @@ console.log("I'm about to start the mapping function");
 	   mbtaPath3.setMap(map);
 
    
-	 /*	  
-	 var features = [
-			 {
-			     position: new google.maps.LatLng(42.3884,-71.11914899999999),
-      			 }
-			 ];
-	 for(var i=0,feature; feature = features[i];i++){
-
-	     console.log("I'm in the for loop");
-	     console.log(i);
-	     addMarker(feature);
-	 }
-     }
-	 */
 
      }
 google.maps.event.addDomListener(window, 'load', mapping);
