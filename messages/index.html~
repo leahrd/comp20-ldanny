@@ -12,6 +12,7 @@
     var text = JSON.parse(jsonData);
 
     document.getElementById("messages").innerHTML = text[0].content + " " + text[0].username + "<br />" + text[1].content + " " + text[1].username;
+//    document.getElementById("messages").innerHTML = text[1].content + " " + text[1].username;
     }
   </script>
 </head>
