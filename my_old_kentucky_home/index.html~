@@ -15,16 +15,10 @@
 
 <script>
   // Complete this section and create a CSS file named style.css
-
-  //This is my working code!!
-  
-  console.log("Do you see me?"); //Test output
     
   function read(currentTime){
-  console.log("Am in the read function?"); //Test output
   var player = document.getElementById("lyrics");
   player.innerHTML = v.currentTime;
-  //var notes = document.createElement("IMG");
   var notes = document.createElement("lyrics");
   
   words = [];
@@ -43,22 +37,9 @@
   words[12] = 'For My Old Kentucky Home, far away'
 
   
-  //var notes = document.getElementById('notes');
 
-  //document.write(player.currentTime); //Test output
-    console.log(v.currentTime);
   if (v.currentTime < 9){
-	//document.getElementById("lyrics").innerHTML = " ";
-	//notes.setAttribute("src",".//notes.png");
-	//notes.setAttribute("alt", "Notes");
-	//notes.setAttribute("width", "200");
-	//notes.setAttribute("width", "200");
-	//document.body.appendChild(notes);
-	//document.getElementById("lyrics").innerHTML = notes;
-	//document.body.appendChild(notes);
-	//var notes = "./notes.png";element.innerHTML = "<img src=;"+ notes + "'>";
-	//document.getElementById("lyrics").innerHTML = imgArr[0].src;
-	//notes.innerHTML = '<img src = ./notes.png>';
+
 	document.getElementById("lyrics").height = "300";
 	document.getElementById("lyrics").width - "300";
 	document.getElementById("lyrics").innerHTML = '<img src="./notes.png">';
@@ -107,7 +88,7 @@
 	document.getElementById("lyrics").innerHTML = words[12];
 	}
   if (v.currentTime > 90){
-	//document.getElementById("lyrics").innerHTML = '<img src="./horse.png">';
+	document.getElementById("lyrics").innerHTML = '<img src="./horse.png">';
 	} 
 }
   //var player = document.getElementById("lyrics");

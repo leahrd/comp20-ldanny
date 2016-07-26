@@ -4,7 +4,8 @@ h1 {
 }
 
 #lyrics{
-	//background-image: url(./notes.png);
-	height: 200px;
-	width: 200px;
+	font-family:verdana;
+	text-align:center;
+	color: purple;
+	font-size:18px;
 }
