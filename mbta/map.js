@@ -2,12 +2,12 @@
      function mapping(){
 	 console.log("I'm in the mapping function!");
 	 var map = new google.maps.Map(document.getElementById('map'), {
-		 zoom: 16,
+		 zoom: 13,
 		 center: new google.maps.LatLng(42.352271, -71.05524200000001),
 		 mapTypeId: google.maps.MapTypeId.ROADMAP
 	     });
-	 var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
 
+	 var image = './here.png';
 
 	 //South Station
 	 var marker = new google.maps.Marker({
