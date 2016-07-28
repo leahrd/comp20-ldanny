@@ -1,6 +1,5 @@
 
      function mapping(){
-	 console.log("I'm in the mapping function!");
 	 var map = new google.maps.Map(document.getElementById('map'), {
 		 zoom: 13,
 		 center: new google.maps.LatLng(42.352271, -71.05524200000001),
@@ -200,8 +199,6 @@
 		   strokeWeight:4
 	       });
 	   mbtaPath3.setMap(map);
-
-   
 
      }
 google.maps.event.addDomListener(window, 'load', mapping);
