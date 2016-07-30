@@ -1,1 +1,8 @@
 /* Your CSS here... */
+
+#messages {
+	  background-color: lightblue;
+	  color: white;
+	  font-family: verdana;
+	  font-size: 18px;
+}
