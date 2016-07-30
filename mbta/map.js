@@ -235,7 +235,7 @@ function mapping() {
 		myLng = position.coords.longitude;
 		var myLoc = new google.maps.LatLng(myLat, myLng);
 		console.log("checking if have geolocation" + myLat + " " + myLng);
-      		//myLocation.push({'id':'My Location',lat:myLat,lng:myLng});
+      		//myLocation.push({'id':'My Location','lat':myLat,'lng':myLng});
 		//console.log(myLocation);
 		var mark = new google.maps.Marker({
 			position: myLoc,
@@ -244,6 +244,7 @@ function mapping() {
 			//icon: image
 		    });
 		mark.setMap(map);
+		find_closest_marker(myLat, myLng);
 		google.maps.event.addListener(mark, 'click', function(){
 			infowindow.setContent(mark.title);
 			infowindow.open(map, mark);
@@ -322,14 +323,16 @@ function makeMap() {
 */
 }
 
-/*
-function find_closest_marker(x) {
+
+function find_closest_marker(lat, lng) {
     
     var closest = 0;
     var minimumdist = 99999;
-
+    console.log(lat,lng);
     for(var i = 0; i<stationDistance.length; i++) {
-	var dist = haversineDist( stationDistance[i].lat, locations[i].lng, myLocation[0].lat, myLocation[0].lng);
+	//var dist = haversineDist( stationDistance[i].lat, locations[i].lng, myLocation[0].lat, myLocation[0].lng);
+	var dist = haversineDist(stationDistance[i].lat, stationDistance[i], lat, lng); 
+	console.log(dist);
 	if (dist < minimumdist){
 	    closest = i;
 	    mindist = dist;
@@ -351,11 +354,11 @@ function haversineDist(lat1, lon1, lat2, lon2) {
 
 
     var R = 6371;
-    var dLat = Deg2Rad(lat2-lat1);
-    var dLon = Deg2Rad(lon2-lon1);
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(Deg2Rad(lat1)) * Math.cos(Deg2Rad(lat2)) *
+    var dLat = toRad(lat2-lat1);
+    var dLon = toRad(lon2-lon1);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
 	Math.sin(dLon/2) * Math.sin(dLon/2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.squrt(1-a));
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var d = R * c;
 
     return d;
@@ -363,7 +366,7 @@ function haversineDist(lat1, lon1, lat2, lon2) {
 
 
 }
-*/
+
 //google.maps.event.addListener(map, 'click',find_closest_marker); 
 google.maps.event.addDomListener(window, 'load', mapping);
 
