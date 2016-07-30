@@ -1,12 +1,20 @@
 
-     function mapping(){
-	 var map = new google.maps.Map(document.getElementById('map'), {
-		 zoom: 13,
-		 center: new google.maps.LatLng(42.352271, -71.05524200000001),
-		 mapTypeId: google.maps.MapTypeId.ROADMAP
-	     });
+var image = './here.png';
+var myLat = 0;
+var myLng = 0;
+var req = new XMLHttpRequest();
+var myloc = new google.maps.LatLng(myLat, myLng);
+var infowindow = new google.maps.InfoWindow();
 
-	 var image = './here.png';
+function mapping() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+	    zoom: 13,
+	    center: new google.maps.LatLng(42.352271, -71.05524200000001),
+	    mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+   
+
+
 
 	 //South Station
 	 var marker = new google.maps.Marker({
@@ -199,8 +207,75 @@
 		   strokeWeight:4
 	       });
 	   mbtaPath3.setMap(map);
+	   //console.log("Going to call getmylocation");
+	   //getMyLocation();
+	   //console.log("Called getmylocation");
+	   
+    console.log("Going to call getmylocation");
+    getMyLocation();
+    console.log("Called getmylocation");
+    /*
+    var myloc = new google.maps.LatLng(myLat, myLng);
 
-     }
+    console.log(myLat +" " + myLng);
+    var mark = new google.maps.Marker({
+	    position: myloc,
+	    map: map,
+	    title: "My Position",
+	    icon: image
+	});
+    mark.setMap(map);
+    google.maps.event.addListener(mark, 'click', function() {
+	    infowindow.setContent(mark.title);
+	    infowindow.open(map, mark);
+
+	});
+	   */
+  }
+
+
+//var myloc = new google.maps.LatLng(myLat, myLng);
+//var map;
+//var mark;
+
+
+function getMyLocation(){
+    if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function(position) {
+		myLat = position.coords.latitude;
+		myLng = position.coords.longitude;
+		console.log(myLat + " " + myLng);
+	        //alert(myLat +" " + myLng);
+		makeMap(); 
+	    });
+    }
+    else {
+	alert("Geolocation not supported on web browser");
+    }
+}
+function makeMap() {
+    var map2 = new google.maps.Map(document.getElementById('map'), {
+    //	 zoom: 13,
+    // center: new google.maps.LatLng(42.352271, -71.05524200000001),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+	});
+    //var myloc = new google.maps.LatLng(myLat,myLng);
+    var myloc = new google.maps.LatLng(myLat, myLng);
+	    var mark = new google.maps.Marker({
+	    position: myloc,
+	    map: map2,
+	    title: "My Position",
+	    icon: image
+	});
+    mark.setMap(map2);
+    google.maps.event.addListener(mark, 'click', function() {
+	    infowindow.setContent(mark.title);
+	    infowindow.open(map2, mark);
+
+	});
+}
+
+ 
 google.maps.event.addDomListener(window, 'load', mapping);
 
 
