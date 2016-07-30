@@ -1,21 +1,33 @@
 
 var image = './here.png';
-var myLat = 0;
-var myLng = 0;
+//var myLat = 0;
+//var myLng = 0;
 var req = new XMLHttpRequest();
-var myloc = new google.maps.LatLng(myLat, myLng);
+//var myloc = new google.maps.LatLng(myLat, myLng);
+/*var options = {
+    zoom: 13,
+    center: new google.maps.LatLng(42.352271, -71.05524200000001),
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+    };*/
+var map;
+//var mark;
+var stationDistance = [{'id':'South Station', lat:42.352,lng:-71.055}];
+var myLocation = [ ];
 var infowindow = new google.maps.InfoWindow();
-
+/*
+function init(){
+    map = new google.maps.Map(document.getElementById('map'),options);
+			      // mapping();
+    //getMyLocation();
+    }
+*/		      
 function mapping() {
     var map = new google.maps.Map(document.getElementById('map'), {
 	    zoom: 13,
 	    center: new google.maps.LatLng(42.352271, -71.05524200000001),
 	    mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
-   
-
-
-
+    
 	 //South Station
 	 var marker = new google.maps.Marker({
 		 position: {lat:42.352, lng: -71.055},
@@ -207,19 +219,51 @@ function mapping() {
 		   strokeWeight:4
 	       });
 	   mbtaPath3.setMap(map);
+
+//console.log("Going to call getmylocation");
+//getMyLocation();
+//console.log("Called getmylocation");
+	   
 	   //console.log("Going to call getmylocation");
 	   //getMyLocation();
 	   //console.log("Called getmylocation");
-	   
-    console.log("Going to call getmylocation");
-    getMyLocation();
-    console.log("Called getmylocation");
-    /*
-    var myloc = new google.maps.LatLng(myLat, myLng);
+	   var myLat = 0;
+	   var myLng = 0;
+    if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function(position) {
+		myLat = position.coords.latitude;
+		myLng = position.coords.longitude;
+		var myLoc = new google.maps.LatLng(myLat, myLng);
+		console.log("checking if have geolocation" + myLat + " " + myLng);
+      		//myLocation.push({'id':'My Location',lat:myLat,lng:myLng});
+		//console.log(myLocation);
+		var mark = new google.maps.Marker({
+			position: myLoc,
+			map: map,
+			title: "My Position",
+			//icon: image
+		    });
+		mark.setMap(map);
+		google.maps.event.addListener(mark, 'click', function(){
+			infowindow.setContent(mark.title);
+			infowindow.open(map, mark);
 
-    console.log(myLat +" " + myLng);
+
+
+	        //alert(myLat +" " + myLng);
+		//makeMap(); 
+		    });
+	    });
+    }
+    else {
+	alert("Geolocation not supported on web browser");
+    }    
+
+    //    var myloc = new google.maps.LatLng(myLat, myLng);
+	    /*
+    console.log(myLat + " " + myLng);
     var mark = new google.maps.Marker({
-	    position: myloc,
+	    position: {lat:myLat, lng:myLng},
 	    map: map,
 	    title: "My Position",
 	    icon: image
@@ -230,14 +274,14 @@ function mapping() {
 	    infowindow.open(map, mark);
 
 	});
-	   */
-  }
-
+	    
+	    }
+	    */
 
 //var myloc = new google.maps.LatLng(myLat, myLng);
 //var map;
 //var mark;
-
+/*
 
 function getMyLocation(){
     if (navigator.geolocation) {
@@ -253,29 +297,74 @@ function getMyLocation(){
 	alert("Geolocation not supported on web browser");
     }
 }
+
 function makeMap() {
-    var map2 = new google.maps.Map(document.getElementById('map'), {
+    //var map2 = new google.maps.Map(document.getElementById('map'), {
     //	 zoom: 13,
     // center: new google.maps.LatLng(42.352271, -71.05524200000001),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-	});
+    // mapTypeId: google.maps.MapTypeId.ROADMAP
+    //});
     //var myloc = new google.maps.LatLng(myLat,myLng);
     var myloc = new google.maps.LatLng(myLat, myLng);
 	    var mark = new google.maps.Marker({
 	    position: myloc,
-	    map: map2,
+	    map: map,
 	    title: "My Position",
 	    icon: image
 	});
-    mark.setMap(map2);
+    mark.setMap(map);
     google.maps.event.addListener(mark, 'click', function() {
 	    infowindow.setContent(mark.title);
-	    infowindow.open(map2, mark);
+	    infowindow.open(map, mark);
 
 	});
 }
+*/
+}
 
- 
+/*
+function find_closest_marker(x) {
+    
+    var closest = 0;
+    var minimumdist = 99999;
+
+    for(var i = 0; i<stationDistance.length; i++) {
+	var dist = haversineDist( stationDistance[i].lat, locations[i].lng, myLocation[0].lat, myLocation[0].lng);
+	if (dist < minimumdist){
+	    closest = i;
+	    mindist = dist;
+	}
+    }
+
+Number.prototype.toRad = function() {
+    return this * Math.PI / 180;
+}
+
+
+
+
+
+function haversineDist(lat1, lon1, lat2, lon2) {
+    function toRad(x){
+	return x * Math.PI/180;
+    }
+
+
+    var R = 6371;
+    var dLat = Deg2Rad(lat2-lat1);
+    var dLon = Deg2Rad(lon2-lon1);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(Deg2Rad(lat1)) * Math.cos(Deg2Rad(lat2)) *
+	Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.squrt(1-a));
+    var d = R * c;
+
+    return d;
+}
+
+
+}
+*/
+//google.maps.event.addListener(map, 'click',find_closest_marker); 
 google.maps.event.addDomListener(window, 'load', mapping);
 
 
