@@ -328,17 +328,19 @@ function find_closest_marker(lat, lng) {
     
     var closest = 0;
     var minimumdist = 99999;
-    console.log(lat,lng);
+    console.log("Closest marker",lat,lng);
     for(var i = 0; i<stationDistance.length; i++) {
 	//var dist = haversineDist( stationDistance[i].lat, locations[i].lng, myLocation[0].lat, myLocation[0].lng);
-	var dist = haversineDist(stationDistance[i].lat, stationDistance[i], lat, lng); 
+	var dist = haversineDist(stationDistance[i].lat, stationDistance[i].lng, lat, lng); 
 	console.log(dist);
 	if (dist < minimumdist){
 	    closest = i;
 	    mindist = dist;
 	}
+
     }
 
+ 
 Number.prototype.toRad = function() {
     return this * Math.PI / 180;
 }
