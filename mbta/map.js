@@ -13,6 +13,9 @@ var map;
 //var mark;
 var stationDistance = [{'id':'South Station', lat:42.352,lng:-71.055}];
 var myLocation = [ ];
+var closestLat = 0;
+var closestLng = 0;
+var closestLatLng = new google.maps.LatLng(closestLat,closestLng);
 var infowindow = new google.maps.InfoWindow();
 /*
 function init(){
@@ -233,28 +236,52 @@ function mapping() {
 	navigator.geolocation.getCurrentPosition(function(position) {
 		myLat = position.coords.latitude;
 		myLng = position.coords.longitude;
-		var myLoc = new google.maps.LatLng(myLat, myLng);
+		//var myLoc = new google.maps.LatLng(myLat, myLng);
 		console.log("checking if have geolocation" + myLat + " " + myLng);
       		//myLocation.push({'id':'My Location','lat':myLat,'lng':myLng});
 		//console.log(myLocation);
+		var latlng = new google.maps.LatLng(myLat,myLng);
+		find_closest_marker(myLat, myLng);
+		    //console.log("results",find_closest_marker(myLat,myLng));
+		    var results = find_closest_marker(myLat,myLng);
+		   
+		    console.log(results);
+		    //var infowindow = new google.maps.InfoWindow({
+		    //    content:results});
+
 		var mark = new google.maps.Marker({
-			position: myLoc,
+			position: latlng,
 			map: map,
-			title: "My Position",
+			title: "My Position"
 			//icon: image
 		    });
-		mark.setMap(map);
-		find_closest_marker(myLat, myLng);
-		google.maps.event.addListener(mark, 'click', function(){
-			infowindow.setContent(mark.title);
+		
+		    mark.setMap(map);
+
+
+		var contentString = "MyPosition", results;
+		console.log("ContentString", results);
+
+		console.log("Closest Latitude Longitude", closestLat, closestLng);
+		    google.maps.event.addListener(mark, 'click', function(){
+			    infowindow.setContent(mark.title +" "+ results);
 			infowindow.open(map, mark);
+		    });
 
+		    var drawingLineCoords = [{lat:myLat,lng:myLng},
+					     {lat:closestLat,lng:closestLng}];
 
-
+		    var drawingLine = new google.maps.Polyline({
+			    path: drawingLineCoords,
+			    geodesic: true,
+			    strokeColor:'#FF0000',
+			    strokeOpacity: 1.0,
+			    strokeWeight: 4});
+		    drawingLine.setMap(map);
 	        //alert(myLat +" " + myLng);
 		//makeMap(); 
 		    });
-	    });
+    
     }
     else {
 	alert("Geolocation not supported on web browser");
@@ -339,8 +366,21 @@ function find_closest_marker(lat, lng) {
 	}
 
     }
+    closestLat = stationDistance[closest].lat;
+    closestLng = stationDistance[closest].lng;
+    /*
+    var  latlng = new google.maps.LatLng(lat, lng);
+        var mark2 = new google.maps.Marker({
+	    position: latlng
+	    map: map
+	    //	    title: "My Position: Closest Station is " + stationDistance[closest].lat, stationDistance[closest].lng});
+	})
+    */
 
- 
+    console.log("Closest lat lng",stationDistance[closest].id, stationDistance[closest].lat, stationDistance[closest].lng);
+    console.log("Returning", stationDistance[closest].id,dist);
+    return stationDistance[closest].id + " " + dist;
+				   
 Number.prototype.toRad = function() {
     return this * Math.PI / 180;
 }
