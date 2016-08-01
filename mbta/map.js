@@ -1,16 +1,7 @@
 
 var image = './here.png';
-//var myLat = 0;
-//var myLng = 0;
 var req = new XMLHttpRequest();
-//var myloc = new google.maps.LatLng(myLat, myLng);
-/*var options = {
-    zoom: 13,
-    center: new google.maps.LatLng(42.352271, -71.05524200000001),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-    };*/
 var map;
-//var mark;
 var stationDistance = [{'id':'South Station', lat:42.352,lng:-71.055}];
 var myLocation = [ ];
 var closestLat = 0;
