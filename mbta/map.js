@@ -1,5 +1,5 @@
 var data = new XMLHttpRequest();
-
+var station = [];
 var image = './here.png';
 var req = new XMLHttpRequest();
 var map;
@@ -9,6 +9,7 @@ var closestLat = 0;
 var closestLng = 0;
 var closestLatLng = new google.maps.LatLng(closestLat,closestLng);
 var infowindow = new google.maps.InfoWindow();
+var stationMarker = []
 /*
 function init(){
     map = new google.maps.Map(document.getElementById('map'),options);
@@ -17,7 +18,7 @@ function init(){
     }
 */		      
 function mapping() {
-    data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
+    /* data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
     data.onreadystatechange = function() {
 	if (data.readyState ==4 && data.status == 200) {
 	    console.log("Got data");
@@ -25,8 +26,15 @@ function mapping() {
     	    //console.log(info);
 	    var text = JSON.parse(info);
 	    console.log(text);
+	    element = document.getElementById("map");
+	    for (i=0; i<text["TripList"]["Trips"].length;i++){
+		data += "<p>Next Red Line train to " + text["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + "," + text["TripList"]["Trips"][i]["Destination"] + "will come in " + text["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + "seconds</p>";}
+	    element.innerHTML = data;
+	
+    
+
 	    //document.getElementById("map").innerHTML = info[0].Predictions;
-	    console.log(text.Predictions[Stop]);
+	    //console.log(text.Predictions[Stop]);
 	}
 	else if(data.readyState == 4 && data.status !=200) {
 	    document.getElementById("map").innerHTML = "<p> Something has gone terribly wrong</p>";
@@ -35,7 +43,7 @@ function mapping() {
 	    console.log("In progress...");
 	}
     };
-
+    */
 
     var map = new google.maps.Map(document.getElementById('map'), {
 	    zoom: 13,
@@ -47,135 +55,229 @@ function mapping() {
 	 var marker = new google.maps.Marker({
 		 position: {lat:42.352, lng: -71.055},
 		 map: map,
-		 icon: image
-		 });
+		 icon: image,
+		 title: "South Station"
+		 //stationMarker.push({title:marker.title, position:marker.position});
+	     });		 
+
+    		 //THIS CHUNK CAN BE DELETED BELOW
+
+    marker.setMap(map);
+    google.maps.event.addListener(marker,'click',function(){
+	    //checkSchedule(marker);
+	    var result=checkSchedule(marker);
+	    console.log("Here's the result!" + result);
+	    infowindow.setContent(marker.title + " " + result);
+	    infowindow.open(map,marker);
+	});
+    
+
+
+
+    /*	
+	//	stationMarker[i] = new google.maps.InfoWindow();
+		 console.log("Looking for station" + marker.title);
+	//console.log("getting schedule for" + stationMarker[i].getTitle());
+	console.log("getting schedule for" + marker.title);	
+	google.maps.event.addListener(marker,'click',function(){
+
+		result = checkSchedule(marker);
+		console.log("Heres the result" + result);
+		infowindow.setContent(result);
+				      infowindow.open(map,marker);
+			}
+			);
+	
+		    }
+
+    */
+
+
+
+
+
+
+
+
+
+
+//stationMarker.push(marker.title);
+    //stationMarker.push(marker.title, marker.position);
+
 
 	 //Porter Square
 	 var marker2 = new google.maps.Marker({
 		 position: {lat:42.3884,lng:-71.11914899999999},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Porter Square"
 	     });
+    stationMarker.push(marker2.title);
+
 	 //Andrew
 	 var marker3 = new google.maps.Marker({
 		 position: {lat:42.330154,lng:-71.057655},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Andrew"
 	     });
+    stationMarker.push(marker3.title);
 	 //Harvard Square 
 	  var marker4 = new google.maps.Marker({
 		 position: {lat:42.373362,lng:-71.118956},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Harvard Square"
 	     });
+    stationMarker.push(marker4.title);
 	  //JFK/UMass
 	   var marker5 = new google.maps.Marker({
 		 position: {lat:42.320685,lng:-71.052391},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "JFK/UMass"
 	     });
+    stationMarker.push(marker5.title);
 	   //Savin Hill
 	   var marker6 = new google.maps.Marker({
 		 position: {lat:42.31129,lng:-71.053331},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Savin Hill"
 	     });
+    stationMarker.push(marker6.title);
 	   //Park Street 
 	   var marker7 = new google.maps.Marker({
 		 position: {lat:42.35639457,lng:-71.0624242},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Park Street"
 	     });
+    stationMarker.push(marker7.title);
 	   //Broadway
 	   var marker8 = new google.maps.Marker({
 		 position: {lat:42.342622,lng:-71.056967},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Broadway"
 	     });
+    stationMarker.push(marker8.title);
 	   //North Quincy
 	   var marker9 = new google.maps.Marker({
 		 position: {lat:42.275275,lng:-71.029583},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "North Quincy"
 	     });
+    stationMarker.push(marker9.title);
 	   //Shawmut 
 	   var marker10 = new google.maps.Marker({
 		 position: {lat:42.29312583,lng:-71.06573796000001},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Shawmut"
 	     });
+    stationMarker.push(marker10.title);
 	   //Davis
 	   var marker11 = new google.maps.Marker({
 		 position: {lat:42.39674,lng:-71.121815},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Davis"
 	     });
+    stationMarker.push(marker11.title);
 	   //Alewife
 	   var marker12 = new google.maps.Marker({
 		 position: {lat:42.395428,lng:-71.142483},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Alewife"
 	     });
+    stationMarker.push(marker12.title);
 	   //Kendall/MIT 
 	   var marker13 = new google.maps.Marker({
 		   position: {lat:42.36249079,lng:-71.08617653},
 		 map: map,
-		 icon:image
+		   icon:image,
+		   title: "Kendall/MIT"
 	     });
+    stationMarker.push(marker13.title);
 	   //Charles/MGH 
 	   var marker14 = new google.maps.Marker({
 		 position: {lat:42.361166,lng:-71.070628},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Charles/MGH"
 	     });
+    stationMarker.push(marker14.title);
 	   //Downtown Crossing
 	   var marker15 = new google.maps.Marker({
 		 position: {lat:42.355518,lng:-71.060225},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Downtown Crossing"
 	     });	
+    stationMarker.push(marker15.title);
 	   //Quincy Center
 	   var marker16 = new google.maps.Marker({
 		 position: {lat:42.251809,lng:-71.005409},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Quincy Center"
 	     });
+    stationMarker.push(marker16.title);
 	   //Quincy Adams
 	   var marker17 = new google.maps.Marker({
 		 position: {lat:42.233391,lng: -71.007153},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Quincy Adams"
 	     });
+    stationMarker.push(marker17.title);
 	   //Ashmont  
 	   var marker18 = new google.maps.Marker({
 		 position: {lat:42.284652,lng:-71.06448899999999},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Ashmont"
 	     });
+    stationMarker.push(marker18.title);
 	   //Wollaston 
 	   var marker19 = new google.maps.Marker({
 		 position: {lat:42.2665139 ,lng:-71.0203369},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Wollaston"
 	     });
+    stationMarker.push(marker19.title);
 	   //Fields Corner 
 	   var marker20 = new google.maps.Marker({
 		 position: {lat:42.300093,lng:-71.061667},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Fields Corner"
 	     });
+    stationMarker.push(marker20.title);
 	   //Central Square
 	   var marker21 = new google.maps.Marker({
 		 position: {lat:42.365486,lng:-71.103802},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Central Square"
 	     });
+    stationMarker.push(marker21.title);
 	   //Braintree
 	   var marker22 = new google.maps.Marker({
 		 position: {lat:42.2078543,lng:-71.0011385},
 		 map: map,
-		 icon:image
+		 icon:image,
+		 title: "Braintree"
 	     });
+    stationMarker.push(marker22.title);
+//var stationMark = [{"id":marker,position:{lat:42.352,lng:-71.055},map:map,icon:image,title:"South Station"}]
+//console.log(stationMark);    
+
+
 
 	   var mbtaPathCoordinates1 = [
 				       {lat:42.395428,lng:-71.142483},
@@ -299,6 +401,27 @@ function mapping() {
 	alert("Geolocation not supported on web browser");
     }    
 
+
+    /*
+    for(i=0; i<stationMarker.length; i++) {
+	var stations = [];
+	//	stationMarker[i] = new google.maps.InfoWindow();
+	console.log("Looking for station", stationMarker[i]);
+	//console.log("getting schedule for" + stationMarker[i].getTitle());
+	console.log("getting schedule for" + stationMarker[i]);	
+	google.maps.event.addListener(stationMarker[i],'click',function(){
+
+		result = checkSchedule(stationMarker[i]);
+		console.log("Heres the result" + result);
+		infowindow.setContent(result);
+				      infowindow.open(map,mark);
+			}
+			);
+	
+		    }
+    */	    
+
+
     //    var myloc = new google.maps.LatLng(myLat, myLng);
 	    /*
     console.log(myLat + " " + myLng);
@@ -361,9 +484,28 @@ function makeMap() {
 }
 */
 
-    data.send(null);
 }
 
+/*
+    function tryingToMakeInfo() {
+	
+    for(i=0; i<stationMarker.length; i++) {
+	var stations = [];
+	//	stationMarker[i] = new google.maps.InfoWindow();
+	console.log("Looking for station", stationMarker[i]);
+	//console.log("getting schedule for" + stationMarker[i].getTitle());
+	console.log("getting schedule for" + stationMarker[i]);	
+	google.maps.event.addListener(stationMarker[i],'click',function(){
+
+		result = checkSchedule(stationMarker[i]);
+		console.log("Heres the result" + result);
+		infowindow.setContent(result);
+				      infowindow.open(map,mark);
+			}
+			);
+	
+		    }
+*/
 
 function find_closest_marker(lat, lng) {
     
@@ -423,6 +565,40 @@ function haversineDist(lat1, lon1, lat2, lon2) {
 
 }
 
+function checkSchedule(marker) {
+    data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
+    data.onreadystatechange = function() {
+	if (data.readyState ==4 && data.status == 200) {
+	    console.log("Got data");
+	    var info = data.responseText;
+    	    //console.log(info);
+	    var text = JSON.parse(info);
+	    console.log(text);
+	    element = document.getElementById("map");
+	    //google.maps.event.addListener(stationMarker[i],'click',function() {
+	    for (i = 0; i<text["TripList"]["Trips"].length; i++) {
+		    if(text["TripList"]["Trips"][i]["Predictions"][0]["Stop"]  ==marker.title) {
+			data+="Next Red Line train to " + text["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + ", " + text["TripList"]["Trips"][i]["Destination"] + " will come in " + text["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + " seconds";}
+		}
+	    console.log("Returning data in checkschedule" + data)
+	    return data;
+		 
+	    
+	    //   google.maps.event.addListner(
+
+	    //document.getElementById("map").innerHTML = info[0].Predictions;
+	    //console.log(text.Predictions[Stop]);
+       
+	}
+	else if(data.readyState == 4 && data.status !=200) {
+	    document.getElementById("map").innerHTML = "<p> Something has gone terribly wrong</p>";
+	}
+	else{
+	    console.log("In progress...");
+	}
+    };
+    data.send(null);
+}
 //google.maps.event.addListener(map, 'click',find_closest_marker); 
 google.maps.event.addDomListener(window, 'load', mapping);
 
