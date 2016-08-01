@@ -1,3 +1,4 @@
+var data = new XMLHttpRequest();
 
 var image = './here.png';
 var req = new XMLHttpRequest();
@@ -16,6 +17,26 @@ function init(){
     }
 */		      
 function mapping() {
+    data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
+    data.onreadystatechange = function() {
+	if (data.readyState ==4 && data.status == 200) {
+	    console.log("Got data");
+	    var info = data.responseText;
+    	    //console.log(info);
+	    var text = JSON.parse(info);
+	    console.log(text);
+	    //document.getElementById("map").innerHTML = info[0].Predictions;
+	    console.log(text.Predictions[Stop]);
+	}
+	else if(data.readyState == 4 && data.status !=200) {
+	    document.getElementById("map").innerHTML = "<p> Something has gone terribly wrong</p>";
+	}
+	else{
+	    console.log("In progress...");
+	}
+    };
+
+
     var map = new google.maps.Map(document.getElementById('map'), {
 	    zoom: 13,
 	    center: new google.maps.LatLng(42.352271, -71.05524200000001),
@@ -339,6 +360,8 @@ function makeMap() {
 	});
 }
 */
+
+    data.send(null);
 }
 
 
