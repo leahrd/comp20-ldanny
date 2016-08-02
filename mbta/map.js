@@ -34,32 +34,6 @@ var infowindow = new google.maps.InfoWindow();
 var stationMarker = []
 
 function mapping() {
-    /* data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
-    data.onreadystatechange = function() {
-	if (data.readyState ==4 && data.status == 200) {
-	    console.log("Got data");
-	    var info = data.responseText;
-    	    //console.log(info);
-	    var text = JSON.parse(info);
-	    console.log(text);
-	    element = document.getElementById("map");
-	    for (i=0; i<text["TripList"]["Trips"].length;i++){
-		data += "<p>Next Red Line train to " + text["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + "," + text["TripList"]["Trips"][i]["Destination"] + "will come in " + text["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + "seconds</p>";}
-	    element.innerHTML = data;
-	
-    
-
-	    //document.getElementById("map").innerHTML = info[0].Predictions;
-	    //console.log(text.Predictions[Stop]);
-	}
-	else if(data.readyState == 4 && data.status !=200) {
-	    document.getElementById("map").innerHTML = "<p> Something has gone terribly wrong</p>";
-	}
-	else{
-	    console.log("In progress...");
-	}
-    };
-    */
 
     var map = new google.maps.Map(document.getElementById('map'), {
 	    zoom: 13,
@@ -67,108 +41,26 @@ function mapping() {
 	    mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
     
-	 //South Station
+
 	 var marker = new google.maps.Marker({
 		 position: {lat:42.352, lng: -71.055},
 		 map: map,
 		 icon: image,
 		 title: "South Station"
-		 //stationMarker.push({title:marker.title, position:marker.position});
 	     });		 
 
-    		 //THIS CHUNK CAN BE DELETED BELOW
-    
+    //Trying to get schedule to show up in infowindow.  Returns undefined here but console.log in checkSchedule outputs correct info.    
     marker.setMap(map);
     var result = checkSchedule(marker);
     console.log("Here's the result!" + result);
+
     google.maps.event.addListener(marker,'click',function(){
 	    infowindow.setContent(marker.title + " " + result);
 	    infowindow.open(map,marker);
+
 	});
 
 
-    //marker.setMap(map);
-    //checkSchedule(marker);
-
-    /*
-    data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
-    data.onreadystatechange = function() {
-    
-    google.maps.event.addListener(marker,'click',function(){
-	    //var result = checkSchedule(marker);
-	    //console.log("Here's the result!" + result);
-	    //var result = checkSchedule(marker);
-	    //console.log("Testing output" + checkSchedule(marker));
-	    //console.log("Here's the result!" +  result);
-	    //checkSchedule(marker);
-     console.log("Trying to set schedule to infowindow");
-	    //console.log(checkSchedule(marker));
-     if(data.readyState==4 && data.status ==200){
-	 console.log("Got data");
-	 var info = data.responseText;
-	 var text = JSON.parse(info);
-	 console.log(text);
-	 element = document.getElementById("map");
-	 for (i = 0; i<text["TripList"]["Trips"].length; i++) {
-	     if(text["TripList"]["Trips"]["Predictions"][0]["Stop"] == marker.title){
-		 data += "Next Red Line train to " + text["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + ", " + text["TripList"]["Trips"][i]["Destination"] + " will come in " + text["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + "seconds";
-	 console.log("Returning data in checkschedule" + data)
-	     }
-	 
-	 else if(data.readyState == 4 && data.status !=200){
-	     document.getElementById("map").innerHTML = "<p> Something has gone terribly wrong</p>";
-	 }
-	 else{
-	     console.log("In progress...");
-	 }
-	 };
-	 data.send(null);
-	 
-	 
-     }
-	});
-
-
-	 infowindow.setContent(marker.title + " " + data);
-	 //infowindow.setContent(marker.title + " " + checkSchedule(marker));
-	    infowindow.open(map,marker);
-	    //alert(checkSchedule(marker));
-	    */
-    
-
-
-
-
-
-    /*	
-	//	stationMarker[i] = new google.maps.InfoWindow();
-		 console.log("Looking for station" + marker.title);
-	//console.log("getting schedule for" + stationMarker[i].getTitle());
-	console.log("getting schedule for" + marker.title);	
-	google.maps.event.addListener(marker,'click',function(){
-
-		result = checkSchedule(marker);
-		console.log("Heres the result" + result);
-		infowindow.setContent(result);
-				      infowindow.open(map,marker);
-			}
-			);
-	
-		    }
-
-    */
-
-
-
-
-
-
-
-
-
-
-//stationMarker.push(marker.title);
-    //stationMarker.push(marker.title, marker.position);
 
 
 	 //Porter Square
@@ -340,9 +232,6 @@ function mapping() {
 		 title: "Braintree"
 	     });
     stationMarker.push(marker22.title);
-//var stationMark = [{"id":marker,position:{lat:42.352,lng:-71.055},map:map,icon:image,title:"South Station"}]
-//console.log(stationMark);    
-
 
 
 	   var mbtaPathCoordinates1 = [
@@ -403,37 +292,23 @@ function mapping() {
 	       });
 	   mbtaPath3.setMap(map);
 
-//console.log("Going to call getmylocation");
-//getMyLocation();
-//console.log("Called getmylocation");
-	   
-	   //console.log("Going to call getmylocation");
-	   //getMyLocation();
-	   //console.log("Called getmylocation");
+
 	   var myLat = 0;
 	   var myLng = 0;
     if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function(position) {
 		myLat = position.coords.latitude;
 		myLng = position.coords.longitude;
-		//var myLoc = new google.maps.LatLng(myLat, myLng);
 		console.log("checking if have geolocation" + myLat + " " + myLng);
-      		//myLocation.push({'id':'My Location','lat':myLat,'lng':myLng});
-		//console.log(myLocation);
 		var latlng = new google.maps.LatLng(myLat,myLng);
 		find_closest_marker(myLat, myLng);
-		    //console.log("results",find_closest_marker(myLat,myLng));
 		    var results = find_closest_marker(myLat,myLng);
 		   
 		    console.log(results);
-		    //var infowindow = new google.maps.InfoWindow({
-		    //    content:results});
-
 		var mark = new google.maps.Marker({
 			position: latlng,
 			map: map,
 			title: "My Position"
-			//icon: image
 		    });
 		
 		    mark.setMap(map);
@@ -458,8 +333,7 @@ function mapping() {
 			    strokeOpacity: 1.0,
 			    strokeWeight: 4});
 		    drawingLine.setMap(map);
-	        //alert(myLat +" " + myLng);
-		//makeMap(); 
+
 		    });
     
     }
@@ -468,110 +342,8 @@ function mapping() {
     }    
 
     }
-    /*
-    for(i=0; i<stationMarker.length; i++) {
-	var stations = [];
-	//	stationMarker[i] = new google.maps.InfoWindow();
-	console.log("Looking for station", stationMarker[i]);
-	//console.log("getting schedule for" + stationMarker[i].getTitle());
-	console.log("getting schedule for" + stationMarker[i]);	
-	google.maps.event.addListener(stationMarker[i],'click',function(){
-
-		result = checkSchedule(stationMarker[i]);
-		console.log("Heres the result" + result);
-		infowindow.setContent(result);
-				      infowindow.open(map,mark);
-			}
-			);
-	
-		    }
-    */	    
 
 
-    //    var myloc = new google.maps.LatLng(myLat, myLng);
-	    /*
-    console.log(myLat + " " + myLng);
-    var mark = new google.maps.Marker({
-	    position: {lat:myLat, lng:myLng},
-	    map: map,
-	    title: "My Position",
-	    icon: image
-	});
-    mark.setMap(map);
-    google.maps.event.addListener(mark, 'click', function() {
-	    infowindow.setContent(mark.title);
-	    infowindow.open(map, mark);
-
-	});
-	    
-	    }
-	    */
-
-//var myloc = new google.maps.LatLng(myLat, myLng);
-//var map;
-//var mark;
-/*
-
-function getMyLocation(){
-    if (navigator.geolocation) {
-	navigator.geolocation.getCurrentPosition(function(position) {
-		myLat = position.coords.latitude;
-		myLng = position.coords.longitude;
-		console.log(myLat + " " + myLng);
-	        //alert(myLat +" " + myLng);
-		makeMap(); 
-	    });
-    }
-    else {
-	alert("Geolocation not supported on web browser");
-    }
-}
-
-function makeMap() {
-    //var map2 = new google.maps.Map(document.getElementById('map'), {
-    //	 zoom: 13,
-    // center: new google.maps.LatLng(42.352271, -71.05524200000001),
-    // mapTypeId: google.maps.MapTypeId.ROADMAP
-    //});
-    //var myloc = new google.maps.LatLng(myLat,myLng);
-    var myloc = new google.maps.LatLng(myLat, myLng);
-	    var mark = new google.maps.Marker({
-	    position: myloc,
-	    map: map,
-	    title: "My Position",
-	    icon: image
-	});
-    mark.setMap(map);
-    google.maps.event.addListener(mark, 'click', function() {
-	    infowindow.setContent(mark.title);
-	    infowindow.open(map, mark);
-
-	});
-}
-*/
-
-// }
-
-/*
-    function tryingToMakeInfo() {
-	
-    for(i=0; i<stationMarker.length; i++) {
-	var stations = [];
-	//	stationMarker[i] = new google.maps.InfoWindow();
-	console.log("Looking for station", stationMarker[i]);
-	//console.log("getting schedule for" + stationMarker[i].getTitle());
-	console.log("getting schedule for" + stationMarker[i]);	
-	google.maps.event.addListener(stationMarker[i],'click',function(){
-
-		result = checkSchedule(stationMarker[i]);
-		console.log("Heres the result" + result);
-		infowindow.setContent(result);
-				      infowindow.open(map,mark);
-			}
-			);
-	
-		    }
-*/
 
 function find_closest_marker(lat, lng) {
     
@@ -579,7 +351,6 @@ function find_closest_marker(lat, lng) {
     var minimumdist = 99999;
     console.log("Closest marker",lat,lng);
     for(var i = 0; i<stationDistance.length; i++) {
-	//var dist = haversineDist( stationDistance[i].lat, locations[i].lng, myLocation[0].lat, myLocation[0].lng);
 	var dist = haversineDist(stationDistance[i].lat, stationDistance[i].lng, lat, lng); 
 	console.log(dist);
 	if (dist < minimumdist){
@@ -590,14 +361,6 @@ function find_closest_marker(lat, lng) {
     }
     closestLat = stationDistance[closest].lat;
     closestLng = stationDistance[closest].lng;
-    /*
-    var  latlng = new google.maps.LatLng(lat, lng);
-        var mark2 = new google.maps.Marker({
-	    position: latlng
-	    map: map
-	    //	    title: "My Position: Closest Station is " + stationDistance[closest].lat, stationDistance[closest].lng});
-	})
-    */
 
     console.log("Closest lat lng",stationDistance[closest].id, stationDistance[closest].lat, stationDistance[closest].lng);
     console.log("Returning", stationDistance[closest].id,minimumdist);
@@ -620,12 +383,6 @@ function haversineDist(lat1, lon1, lat2, lon2) {
     var R = 6371;
     var dLat = toRad(lat2-lat1);
     var dLon = toRad(lon2-lon1);
-    //var dLat = (lat2-lat1).toRad();
-    //var dLng = (lon2-lon1).toRad();
-    //var n1 = lat2-lat1;
-    //var dLat = n1.haversineDist();
-    //var n2 = lon2-lon1;
-    //var dLng = n2.haversineDist();
     var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
 	Math.sin(dLon/2) * Math.sin(dLon/2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
@@ -644,12 +401,12 @@ function checkSchedule(marker) {
 	if (data.readyState ==4 && data.status == 200) {
 
 	    console.log("Got data");
-	    info = data.responseText;
-	    data = "";
-    	    //console.log(info);
-	    text = JSON.parse(info);
+	    var info = data.responseText;
+	    //console.long(info);
+	    //data = "";
+	    var text = JSON.parse(info);
 	    console.log(text);
-	    //element = document.getElementById("map");
+	    element = document.getElementById("map");
 	    //google.maps.event.addListener(stationMarker[i],'click',function() {
 	    for (i = 0; i<text["TripList"]["Trips"].length; i++) {
 		    if(text["TripList"]["Trips"][i]["Predictions"][0]["Stop"]  ==marker.title) {
@@ -664,7 +421,7 @@ function checkSchedule(marker) {
 	    //document.getElementById("map").innerHTML = info[0].Predictions;
 	    //console.log(text.Predictions[Stop]);
        
-	}
+		}
 	else if(data.readyState == 4 && data.status !=200) {
 	    document.getElementById("map").innerHTML = "<p> Something has gone terribly wrong</p>";
 	}
@@ -675,7 +432,6 @@ function checkSchedule(marker) {
 data.send(null);
 }
 
-//google.maps.event.addListener(map, 'click',find_closest_marker); 
 google.maps.event.addDomListener(window, 'load', mapping);
 
 
