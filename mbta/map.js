@@ -51,10 +51,13 @@ function mapping() {
 
     //Trying to get schedule to show up in infowindow.  Returns undefined here but console.log in checkSchedule outputs correct info.    
     marker.setMap(map);
-    var result = checkSchedule(marker);
+
+    var result=checkSchedule(marker);
     console.log("Here's the result!" + result);
 
     google.maps.event.addListener(marker,'click',function(){
+	    //var result=checkSchedule(marker);
+	    //console.log("Here's the result!" + result);
 	    infowindow.setContent(marker.title + " " + result);
 	    infowindow.open(map,marker);
 
