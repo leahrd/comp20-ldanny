@@ -49,7 +49,7 @@ function mapping() {
 		 title: "South Station"
 	     });		 
 
-    //Trying to get schedule to show up in infowindow.  Returns undefined here but console.log in checkSchedule outputs correct info.    
+    //Trying to get schedule to show up in infowindow.  Returns undefined here but console.log in checkSchedule outputs correct info.  This is where I think my problem is.   
     marker.setMap(map);
 
     var result=checkSchedule(marker);
