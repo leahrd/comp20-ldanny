@@ -3,20 +3,36 @@ var station = [];
 var image = './here.png';
 var req = new XMLHttpRequest();
 var map;
-var stationDistance = [{'id':'South Station', lat:42.352,lng:-71.055}];
+var stationDistance = [{'id':'South Station', lat:42.352,lng:-71.055},
+		       {'id':'Porter Square', lat:42.3884,lng:-71.11914899999999},
+		       {'id':'Andrew', lat:42.330154,lng:-71.057655},
+		       {'id':'Harvard Square', lat:42.373362,lng:-71.118956},
+		       {'id':'JFK/UMass', lat:42.320685,lng:-71.052391},
+		       {'id':'Savin Hill', lat:42.31129,lng:-71.053331},
+		       {'id':'Park Street', lat:42.35639457,lng:-71.0624242},
+		       {'id':'Broadway', lat:42.342622,lng:-71.056967},
+		       {'id':'North Quincy', lat:42.275275,lng:-71.029583},
+		       {'id':'Shamut', lat:42.29312583,lng:-71.06573796000001},
+		       {'id':'Davis', lat:42.39674,lng:-71.121815},
+		       {'id':'Alewife', lat:42.395428,lng:-71.142483},
+		       {'id':'Kendall/MIT', lat:42.36249079,lng:-71.08617653},
+		       {'id':'Charles/MGH', lat:42.361166,lng:-71.070628},
+		       {'id':'Downtown Crossing', lat:42.355518,lng:-71.060225},
+		       {'id':'Quincy Center', lat:42.251809,lng:-71.005409},
+		       {'id':'Quincy Adams', lat:42.233391,lng: -71.007153},
+		       {'id':'Ashmont', lat:42.284652,lng:-71.06448899999999},
+		       {'id':'Wollaston', lat:42.2665139 ,lng:-71.0203369},
+		       {'id':'Fields Corner', lat:42.300093,lng:-71.061667},
+		       {'id':'Central Square', lat:42.365486,lng:-71.103802},
+		       {'id':'Braintree', lat:42.2078543,lng:-71.0011385}
+		       ];
 var myLocation = [ ];
 var closestLat = 0;
 var closestLng = 0;
 var closestLatLng = new google.maps.LatLng(closestLat,closestLng);
 var infowindow = new google.maps.InfoWindow();
 var stationMarker = []
-/*
-function init(){
-    map = new google.maps.Map(document.getElementById('map'),options);
-			      // mapping();
-    //getMyLocation();
-    }
-*/		      
+
 function mapping() {
     /* data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
     data.onreadystatechange = function() {
@@ -61,16 +77,66 @@ function mapping() {
 	     });		 
 
     		 //THIS CHUNK CAN BE DELETED BELOW
-
+    
     marker.setMap(map);
+    var result = checkSchedule(marker);
+    console.log("Here's the result!" + result);
     google.maps.event.addListener(marker,'click',function(){
-	    //checkSchedule(marker);
-	    var result=checkSchedule(marker);
-	    console.log("Here's the result!" + result);
 	    infowindow.setContent(marker.title + " " + result);
 	    infowindow.open(map,marker);
 	});
+
+
+    //marker.setMap(map);
+    //checkSchedule(marker);
+
+    /*
+    data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
+    data.onreadystatechange = function() {
     
+    google.maps.event.addListener(marker,'click',function(){
+	    //var result = checkSchedule(marker);
+	    //console.log("Here's the result!" + result);
+	    //var result = checkSchedule(marker);
+	    //console.log("Testing output" + checkSchedule(marker));
+	    //console.log("Here's the result!" +  result);
+	    //checkSchedule(marker);
+     console.log("Trying to set schedule to infowindow");
+	    //console.log(checkSchedule(marker));
+     if(data.readyState==4 && data.status ==200){
+	 console.log("Got data");
+	 var info = data.responseText;
+	 var text = JSON.parse(info);
+	 console.log(text);
+	 element = document.getElementById("map");
+	 for (i = 0; i<text["TripList"]["Trips"].length; i++) {
+	     if(text["TripList"]["Trips"]["Predictions"][0]["Stop"] == marker.title){
+		 data += "Next Red Line train to " + text["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + ", " + text["TripList"]["Trips"][i]["Destination"] + " will come in " + text["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + "seconds";
+	 console.log("Returning data in checkschedule" + data)
+	     }
+	 
+	 else if(data.readyState == 4 && data.status !=200){
+	     document.getElementById("map").innerHTML = "<p> Something has gone terribly wrong</p>";
+	 }
+	 else{
+	     console.log("In progress...");
+	 }
+	 };
+	 data.send(null);
+	 
+	 
+     }
+	});
+
+
+	 infowindow.setContent(marker.title + " " + data);
+	 //infowindow.setContent(marker.title + " " + checkSchedule(marker));
+	    infowindow.open(map,marker);
+	    //alert(checkSchedule(marker));
+	    */
+    
+
+
 
 
 
@@ -401,7 +467,7 @@ function mapping() {
 	alert("Geolocation not supported on web browser");
     }    
 
-
+    }
     /*
     for(i=0; i<stationMarker.length; i++) {
 	var stations = [];
@@ -484,7 +550,7 @@ function makeMap() {
 }
 */
 
-}
+// }
 
 /*
     function tryingToMakeInfo() {
@@ -518,7 +584,7 @@ function find_closest_marker(lat, lng) {
 	console.log(dist);
 	if (dist < minimumdist){
 	    closest = i;
-	    mindist = dist;
+	    minimumdist = dist;
 	}
 
     }
@@ -534,8 +600,8 @@ function find_closest_marker(lat, lng) {
     */
 
     console.log("Closest lat lng",stationDistance[closest].id, stationDistance[closest].lat, stationDistance[closest].lng);
-    console.log("Returning", stationDistance[closest].id,dist);
-    return stationDistance[closest].id + " " + dist;
+    console.log("Returning", stationDistance[closest].id,minimumdist);
+    return stationDistance[closest].id + " " + minimumdist;
 				   
 Number.prototype.toRad = function() {
     return this * Math.PI / 180;
@@ -554,6 +620,12 @@ function haversineDist(lat1, lon1, lat2, lon2) {
     var R = 6371;
     var dLat = toRad(lat2-lat1);
     var dLon = toRad(lon2-lon1);
+    //var dLat = (lat2-lat1).toRad();
+    //var dLng = (lon2-lon1).toRad();
+    //var n1 = lat2-lat1;
+    //var dLat = n1.haversineDist();
+    //var n2 = lon2-lon1;
+    //var dLng = n2.haversineDist();
     var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
 	Math.sin(dLon/2) * Math.sin(dLon/2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
@@ -566,23 +638,26 @@ function haversineDist(lat1, lon1, lat2, lon2) {
 }
 
 function checkSchedule(marker) {
+
     data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
     data.onreadystatechange = function() {
 	if (data.readyState ==4 && data.status == 200) {
+
 	    console.log("Got data");
-	    var info = data.responseText;
+	    info = data.responseText;
+	    data = "";
     	    //console.log(info);
-	    var text = JSON.parse(info);
+	    text = JSON.parse(info);
 	    console.log(text);
-	    element = document.getElementById("map");
+	    //element = document.getElementById("map");
 	    //google.maps.event.addListener(stationMarker[i],'click',function() {
 	    for (i = 0; i<text["TripList"]["Trips"].length; i++) {
 		    if(text["TripList"]["Trips"][i]["Predictions"][0]["Stop"]  ==marker.title) {
 			data+="Next Red Line train to " + text["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + ", " + text["TripList"]["Trips"][i]["Destination"] + " will come in " + text["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + " seconds";}
 		}
-	    console.log("Returning data in checkschedule" + data)
+	    console.log("Returning data in checkschedule" + data);
+	    //return "Returning data in checkschedule" + data;
 	    return data;
-		 
 	    
 	    //   google.maps.event.addListner(
 
@@ -597,8 +672,9 @@ function checkSchedule(marker) {
 	    console.log("In progress...");
 	}
     };
-    data.send(null);
+data.send(null);
 }
+
 //google.maps.event.addListener(map, 'click',find_closest_marker); 
 google.maps.event.addDomListener(window, 'load', mapping);
 
