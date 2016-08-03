@@ -31,7 +31,7 @@ var closestLat = 0;
 var closestLng = 0;
 var closestLatLng = new google.maps.LatLng(closestLat,closestLng);
 var infowindow = new google.maps.InfoWindow();
-var stationMarker = []
+var stationMarker = [];
 
 function mapping() {
 
