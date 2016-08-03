@@ -296,8 +296,8 @@ function mapping() {
 	   mbtaPath3.setMap(map);
 
 
-	   var myLat = 0;
-	   var myLng = 0;
+    var myLat = 0;
+    var myLng = 0;
     if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function(position) {
 		myLat = position.coords.latitude;
@@ -305,7 +305,7 @@ function mapping() {
 		//console.log("checking if have geolocation" + myLat + " " + myLng);
 		var latlng = new google.maps.LatLng(myLat,myLng);
 		find_closest_marker(myLat, myLng);
-		    var results = find_closest_marker(myLat,myLng);
+		var results = find_closest_marker(myLat,myLng);
 		   
 		    //console.log(results);
 		var mark = new google.maps.Marker({
@@ -313,38 +313,37 @@ function mapping() {
 			map: map,
 			title: "My Position"
 		    });
-		
-		    mark.setMap(map);
+	    
+		mark.setMap(map);
 
 
 		var contentString = "MyPosition", results;
 		//console.log("ContentString", results);
 
 		//console.log("Closest Latitude Longitude", closestLat, closestLng);
-		    google.maps.event.addListener(mark, 'click', function(){
-			    infowindow.setContent(mark.title +" "+ results);
+		google.maps.event.addListener(mark, 'click', function(){
+			infowindow.setContent(mark.title +" "+ results);
 			infowindow.open(map, mark);
 		    });
+		var drawingLineCoords = [{lat:myLat,lng:myLng},
+					 {lat:closestLat,lng:closestLng}];
 
-		    var drawingLineCoords = [{lat:myLat,lng:myLng},
-					     {lat:closestLat,lng:closestLng}];
+		var drawingLine = new google.maps.Polyline({
+			path: drawingLineCoords,
+			geodesic: true,
+			strokeColor:'#FF0000',
+			strokeOpacity: 1.0,
+			strokeWeight: 4});
+		drawingLine.setMap(map);
 
-		    var drawingLine = new google.maps.Polyline({
-			    path: drawingLineCoords,
-			    geodesic: true,
-			    strokeColor:'#FF0000',
-			    strokeOpacity: 1.0,
-			    strokeWeight: 4});
-		    drawingLine.setMap(map);
-
-		    });
+	    });
     
     }
     else {
 	alert("Geolocation not supported on web browser");
     }    
 
-    }
+}
 
 
 
@@ -404,31 +403,31 @@ function checkSchedule(marker) {
     data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
     console.log("I'm going to call onreadystatechange");
     data.onreadystatechange = function() {
-    console.log("I called onreadystatechange");
-    console.log("I'm about to enter the first if statement");
-    if (data.readyState ==4 && data.status == 200) {
-	console.log("Got data");
-	var info = data.responseText;
-	var text = JSON.parse(info);
-	console.log(text);
-	element = document.getElementById("map");
-	console.log("I'm about to enter for loop");
-	for (i = 0; i<text["TripList"]["Trips"].length; i++) {
-	    if(text["TripList"]["Trips"][i]["Predictions"][0]["Stop"]  ==marker.title) {
+	console.log("I called onreadystatechange");
+	console.log("I'm about to enter the first if statement");
+	if (data.readyState ==4 && data.status == 200) {
+	    console.log("Got data");
+	    var info = data.responseText;
+	    var text = JSON.parse(info);
+	    console.log(text);
+	    element = document.getElementById("map");
+	    console.log("I'm about to enter for loop");
+	    for (i = 0; i<text["TripList"]["Trips"].length; i++) {
+		if(text["TripList"]["Trips"][i]["Predictions"][0]["Stop"]  ==marker.title) {
 		data+="Next Red Line train to " + text["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + ", " + text["TripList"]["Trips"][i]["Destination"] + " will come in " + text["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + " seconds";
-	    }
+		}
 
-	}
+	    }
 	console.log("Returning data in checkschedule" + data);
 	return data;
 	    
-    }
-    else if(data.readyState == 4 && data.status !=200) {
-	document.getElementById("map").innerHTML = "<p> Something has gone terribly wrong</p>";
-    }
-    else{
-	console.log("In progress...");
-    }
+	}
+	else if(data.readyState == 4 && data.status !=200) {
+	    document.getElementById("map").innerHTML = "<p> Something has gone terribly wrong</p>";
+	}
+	else{
+	    console.log("In progress...");
+	}
     };
     data.send(null);
 }
