@@ -52,8 +52,9 @@ function mapping() {
     //Trying to get schedule to show up in infowindow.  Returns undefined here but console.log in checkSchedule outputs correct info.  This is where I think my problem is.   
     marker.setMap(map);
 
-    var result=checkSchedule(marker);
-    console.log("Here's the result!" + result);
+    console.log("Checking checkschedule output" + checkSchedule(marker));
+    //var result=checkSchedule(marker);
+    //console.log("Here's the result!" + result);
 
     google.maps.event.addListener(marker,'click',function(){
 	    //var result=checkSchedule(marker);
@@ -399,8 +400,11 @@ function haversineDist(lat1, lon1, lat2, lon2) {
 
 function checkSchedule(marker) {
 
+    console.log("I've entered the helper function");
+    
     data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
     data.onreadystatechange = function() {
+	console.log("I'm about to enter the first if statement");
 	if (data.readyState ==4 && data.status == 200) {
 
 	    console.log("Got data");
@@ -410,10 +414,12 @@ function checkSchedule(marker) {
 	    var text = JSON.parse(info);
 	    console.log(text);
 	    element = document.getElementById("map");
+	    console.log("I'm about to enter for loop");
 	    //google.maps.event.addListener(stationMarker[i],'click',function() {
 	    for (i = 0; i<text["TripList"]["Trips"].length; i++) {
 		    if(text["TripList"]["Trips"][i]["Predictions"][0]["Stop"]  ==marker.title) {
 			data+="Next Red Line train to " + text["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + ", " + text["TripList"]["Trips"][i]["Destination"] + " will come in " + text["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + " seconds";}
+
 		}
 	    console.log("Returning data in checkschedule" + data);
 	    //return "Returning data in checkschedule" + data;
