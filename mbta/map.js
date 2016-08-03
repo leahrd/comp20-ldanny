@@ -49,17 +49,16 @@ function mapping() {
 		 title: "South Station"
 	     });		 
 
+    //Here is where I'm calling the checkSchedule function
     //Trying to get schedule to show up in infowindow.  Returns undefined here but console.log in checkSchedule outputs correct info.  This is where I think my problem is.   
     marker.setMap(map);
 
     console.log("Checking checkschedule output" + checkSchedule(marker));
-    //var result=checkSchedule(marker);
-    //console.log("Here's the result!" + result);
+    var schedResult=checkSchedule(marker);
+    console.log("Here's the result!" + schedResult);
 
     google.maps.event.addListener(marker,'click',function(){
-	    //var result=checkSchedule(marker);
-	    //console.log("Here's the result!" + result);
-	    infowindow.setContent(marker.title + " " + result);
+	    infowindow.setContent(marker.title + " " + schedResult);
 	    infowindow.open(map,marker);
 
 	});
@@ -303,12 +302,12 @@ function mapping() {
 	navigator.geolocation.getCurrentPosition(function(position) {
 		myLat = position.coords.latitude;
 		myLng = position.coords.longitude;
-		console.log("checking if have geolocation" + myLat + " " + myLng);
+		//console.log("checking if have geolocation" + myLat + " " + myLng);
 		var latlng = new google.maps.LatLng(myLat,myLng);
 		find_closest_marker(myLat, myLng);
 		    var results = find_closest_marker(myLat,myLng);
 		   
-		    console.log(results);
+		    //console.log(results);
 		var mark = new google.maps.Marker({
 			position: latlng,
 			map: map,
@@ -319,9 +318,9 @@ function mapping() {
 
 
 		var contentString = "MyPosition", results;
-		console.log("ContentString", results);
+		//console.log("ContentString", results);
 
-		console.log("Closest Latitude Longitude", closestLat, closestLng);
+		//console.log("Closest Latitude Longitude", closestLat, closestLng);
 		    google.maps.event.addListener(mark, 'click', function(){
 			    infowindow.setContent(mark.title +" "+ results);
 			infowindow.open(map, mark);
@@ -353,10 +352,10 @@ function find_closest_marker(lat, lng) {
     
     var closest = 0;
     var minimumdist = 99999;
-    console.log("Closest marker",lat,lng);
+    //console.log("Closest marker",lat,lng);
     for(var i = 0; i<stationDistance.length; i++) {
 	var dist = haversineDist(stationDistance[i].lat, stationDistance[i].lng, lat, lng); 
-	console.log(dist);
+	//console.log(dist);
 	if (dist < minimumdist){
 	    closest = i;
 	    minimumdist = dist;
@@ -366,8 +365,8 @@ function find_closest_marker(lat, lng) {
     closestLat = stationDistance[closest].lat;
     closestLng = stationDistance[closest].lng;
 
-    console.log("Closest lat lng",stationDistance[closest].id, stationDistance[closest].lat, stationDistance[closest].lng);
-    console.log("Returning", stationDistance[closest].id,minimumdist);
+    //console.log("Closest lat lng",stationDistance[closest].id, stationDistance[closest].lat, stationDistance[closest].lng);
+    //console.log("Returning", stationDistance[closest].id,minimumdist);
     return stationDistance[closest].id + " " + minimumdist;
 				   
 Number.prototype.toRad = function() {
@@ -403,43 +402,38 @@ function checkSchedule(marker) {
     console.log("I've entered the helper function");
     
     data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
+    console.log("I'm going to call onreadystatechange");
     data.onreadystatechange = function() {
-	console.log("I'm about to enter the first if statement");
-	if (data.readyState ==4 && data.status == 200) {
+    console.log("I called onreadystatechange");
+    console.log("I'm about to enter the first if statement");
+    if (data.readyState ==4 && data.status == 200) {
+	console.log("Got data");
+	var info = data.responseText;
+	var text = JSON.parse(info);
+	console.log(text);
+	element = document.getElementById("map");
+	console.log("I'm about to enter for loop");
+	for (i = 0; i<text["TripList"]["Trips"].length; i++) {
+	    if(text["TripList"]["Trips"][i]["Predictions"][0]["Stop"]  ==marker.title) {
+		data+="Next Red Line train to " + text["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + ", " + text["TripList"]["Trips"][i]["Destination"] + " will come in " + text["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + " seconds";
+	    }
 
-	    console.log("Got data");
-	    var info = data.responseText;
-	    //console.long(info);
-	    //data = "";
-	    var text = JSON.parse(info);
-	    console.log(text);
-	    element = document.getElementById("map");
-	    console.log("I'm about to enter for loop");
-	    //google.maps.event.addListener(stationMarker[i],'click',function() {
-	    for (i = 0; i<text["TripList"]["Trips"].length; i++) {
-		    if(text["TripList"]["Trips"][i]["Predictions"][0]["Stop"]  ==marker.title) {
-			data+="Next Red Line train to " + text["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + ", " + text["TripList"]["Trips"][i]["Destination"] + " will come in " + text["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + " seconds";}
-
-		}
-	    console.log("Returning data in checkschedule" + data);
-	    //return "Returning data in checkschedule" + data;
-	    return data;
+	}
+	console.log("Returning data in checkschedule" + data);
+	return data;
 	    
-	    //   google.maps.event.addListner(
-
-	    //document.getElementById("map").innerHTML = info[0].Predictions;
-	    //console.log(text.Predictions[Stop]);
-       
-		}
-	else if(data.readyState == 4 && data.status !=200) {
-	    document.getElementById("map").innerHTML = "<p> Something has gone terribly wrong</p>";
-	}
-	else{
-	    console.log("In progress...");
-	}
+    }
+    else if(data.readyState == 4 && data.status !=200) {
+	document.getElementById("map").innerHTML = "<p> Something has gone terribly wrong</p>";
+    }
+    else{
+	console.log("In progress...");
+    }
     };
-data.send(null);
+    data.send(null);
 }
+
+
 
 google.maps.event.addDomListener(window, 'load', mapping);
 
