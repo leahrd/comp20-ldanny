@@ -1,11 +1,18 @@
-//Lab8
+//Lab10
 //Leah Danny
-//7/25/16
+//8/3/16
 //Web Programming
 
 
-I was able to create an index.html page where a google map of the mbta red line.  I labeled each station with an image and drew a red polyline that trace the path of the mbta red line.  I used a 'You Are Here' arrow for each of the stations.  I was hoping to resize the arrow smaller, but I wasn't able to do this successfully.  I resized the image and saved it but I wasn't able to get it to a scale I was happy with.  I was hoping to find a way to make more efficient but I didn't have enough time.
+I was able to successfully to determine my geolocation and put the default red pin as the marker.  I was also able to display an 
+infowindow at that marker that gave the closest MBTA Red Line station and how far away the station is from my location.  I was also 
+able to draw a polyline that connects my marker to the closest Red Line station.  I had a lot of trouble with displaying an infowindow
+with the schedule of upcoming trains for each of the stations, but at the end of the day I made it work.  I tried to create a separate function, checkSchedule but whenever I called the function, it returned a value of undefined.  I realized this was happening because the function wasn't finishing before a 
+value was returned but I couldn't figure out why this was happening in the time alloted.  Because of this, I essentially took what I 
+had in my checkSchedule function and wrote it for each of the markers.  I understand that this is certainly not modular and isn't good
+practice but since I wasn't able to get my checkSchedule function working, I decided this would be better than no functionality.  I will continue to try to figure out what the problem was after the deadline.  I apologize in advance for the massive amount of code that resulted.  
 
-The only resources I used for this assignment were online resources I found online.  
+I discussed this assignment briefly with the course TA, John and I used the Haversine Formula resources posted on the course website,
+specifically the Stack Overflow link. 
 
-This assignment took me about 5 hours.
+I spent approximately 10 hours on this assignment.
