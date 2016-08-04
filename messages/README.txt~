@@ -1,0 +1,10 @@
+//Leah Danny
+//Web Programming
+//8/3/2016
+//Lab 9: Messages Part 2
+
+I have been able to open the given JSON file using XMLHttpRequest and successfully parsed the JSON data.  I've made some styling changes to the messages output using the given CSS file.  
+
+Additionally, I opened the index.html on a couple of web browsers.  I was given the phrase "Something has gone terribly wrong..." when I opened it in chrome and safari but it worked when I opened it in firefox.  
+
+When I loaded the JSON data from a URI I got something   
