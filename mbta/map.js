@@ -1,26 +1,5 @@
 var data = new XMLHttpRequest();
-/*var data2 = new XMLHttpRequest();
-var data3 = new XMLHttpRequest();
-var data4 = new XMLHttpRequest();
-var data5 = new XMLHttpRequest();
-var data6 = new XMLHttpRequest();
-var data7 = new XMLHttpRequest();
-var data8 = new XMLHttpRequest();
-var data9 = new XMLHttpRequest();
-var data10 = new XMLHttpRequest();
-var data11 = new XMLHttpRequest();
-var data12 = new XMLHttpRequest();
-var data13 = new XMLHttpRequest();
-var data14 = new XMLHttpRequest();
-var data15 = new XMLHttpRequest();
-var data16 = new XMLHttpRequest();
-var data17 = new XMLHttpRequest();
-var data18 = new XMLHttpRequest();
-var data19 = new XMLHttpRequest();
-var data20 = new XMLHttpRequest();
-var data21 = new XMLHttpRequest();
-var data22 = new XMLHttpRequest();
-*/
+
 var marker = [];
 var station = [];
 var image = './here.png';
@@ -54,30 +33,8 @@ var closestLat = 0;
 var closestLng = 0;
 var closestLatLng = new google.maps.LatLng(closestLat,closestLng);
 var infowindows = [];
-/*var infowindow = new google.maps.InfoWindow();
-var infowindow2 = new google.maps.InfoWindow();
-var infowindow3 = new google.maps.InfoWindow();
-var infowindow4 = new google.maps.InfoWindow();
-var infowindow5 = new google.maps.InfoWindow();
-var infowindow6 = new google.maps.InfoWindow();
-var infowindow7 = new google.maps.InfoWindow();
-var infowindow8 = new google.maps.InfoWindow();
-var infowindow9 = new google.maps.InfoWindow();
-var infowindow10 = new google.maps.InfoWindow();
-var infowindow11 = new google.maps.InfoWindow();
-var infowindow12 = new google.maps.InfoWindow();
-var infowindow13 = new google.maps.InfoWindow();
-var infowindow14 = new google.maps.InfoWindow();
-var infowindow15 = new google.maps.InfoWindow();
-var infowindow16 = new google.maps.InfoWindow();
-var infowindow17 = new google.maps.InfoWindow();
-var infowindow18 = new google.maps.InfoWindow();
-var infowindow19 = new google.maps.InfoWindow();
-var infowindow20 = new google.maps.InfoWindow();
-var infowindow21 = new google.maps.InfoWindow();
-var infowindow22 = new google.maps.InfoWindow();
-var infowindow23 = new google.maps.InfoWindow();
-*/
+var infowindow = new google.maps.InfoWindow();
+
 var stationMarker = [];
 
 function mapping() {
@@ -126,6 +83,7 @@ function mapping() {
 		{'id':'Centeral Suare',position: {lat:42.365486,lng:-71.103802}, map:map, icon:image, title:'Centeral Square'},
 		{'id':'Braintree',  position: {lat:42.2078543,lng:-71.0011385}, map:map, icon:image, title: 'Braintree'}]);
 		
+		marker[i].setMap(map);
 		for(var j=0;i<["TripList"]["Trips"].length; j++){
 		    if(text["TripList"]["Trips"][j]["Predictions"][0]["Stop"]==marker[i].title){
              data21+="Next Red Line train to " + text["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + ", From " + text["TripList"]["Trips"][i]["Destination"] + " will come in " + text["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + " seconds";}
