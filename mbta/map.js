@@ -1,5 +1,5 @@
 var data = new XMLHttpRequest();
-var data2 = new XMLHttpRequest();
+/*var data2 = new XMLHttpRequest();
 var data3 = new XMLHttpRequest();
 var data4 = new XMLHttpRequest();
 var data5 = new XMLHttpRequest();
@@ -20,6 +20,8 @@ var data19 = new XMLHttpRequest();
 var data20 = new XMLHttpRequest();
 var data21 = new XMLHttpRequest();
 var data22 = new XMLHttpRequest();
+*/
+var marker = [];
 var station = [];
 var image = './here.png';
 var req = new XMLHttpRequest();
@@ -51,7 +53,8 @@ var myLocation = [ ];
 var closestLat = 0;
 var closestLng = 0;
 var closestLatLng = new google.maps.LatLng(closestLat,closestLng);
-var infowindow = new google.maps.InfoWindow();
+var infowindows = [];
+/*var infowindow = new google.maps.InfoWindow();
 var infowindow2 = new google.maps.InfoWindow();
 var infowindow3 = new google.maps.InfoWindow();
 var infowindow4 = new google.maps.InfoWindow();
@@ -74,24 +77,87 @@ var infowindow20 = new google.maps.InfoWindow();
 var infowindow21 = new google.maps.InfoWindow();
 var infowindow22 = new google.maps.InfoWindow();
 var infowindow23 = new google.maps.InfoWindow();
+*/
 var stationMarker = [];
 
 function mapping() {
-
+    console.log("I'm entering mapping");
     //Displaying map
     var map = new google.maps.Map(document.getElementById('map'), {
 	    zoom: 13,
 	    center: new google.maps.LatLng(42.352271, -71.05524200000001),
 	    mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
+
+    console.log("I'm going to open data");
+
+    data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
+    console.log("I just opened data");
+    data.onreadystatechange = function() {
+	alert("entered call back function" + xmlHttp.readyState);
+	console.log("I just went through onreadystatechange");
+	if(data.readyState == 4 && data.status == 200){
+	    var info = data.responseText;
+	    var text = JSON.parse(info);
+	    element = document.getElementById("map");
+	    console.log(text);
+	    for(var i=0; i<marker.length;i++){
+		console.log(marker[i]);
+		marker[i] = new google.maps.marker([{'id':'South Station',position:{lat:42.352,lng:-71.055},map:map,icon:image, title:"South Station"}, 
+		{'id':'Porter Square',position:{lat:42.3884,lng:-71.11914899999999},map: map,icon:image,title:"Porter Square"},
+		{'id': 'Andrew', position: {lat:42.330154,lng:-71.057655}, map: map, icon:image, title:'Andrew'},
+		{'id':'Harvard Square',position:{lat:42.373362,lng:-71.118956}, map: map, icon:image, title:'Harvard Square'},
+		{'id':'JFK/UMass',  position: {lat:42.320685,lng:-71.052391}, map: map, icon: image, title: 'JFK/UMass'},
+		{'id':'Savin Hill',  position: {lat:42.31129,lng:-71.053331}, map: map, icon: image, title: 'Savin Hill'},
+		{'id':'Park Street', position: {lat:42.35639457,lng:-71.0624242}, map: map, icon: image, title: 'Park Street'},
+		{'id':'Broadway', position: {lat:42.342622,lng:-71.056967}, map: map, icon: image, title: 'Broadway'},
+		{'id':'North Quincy', position: {lat:42.275275,lng:-71.029583}, map: map, icon: image,  title: 'North Quincy'},
+		{'id':'Shamut', position: {lat:42.29312583,lng:-71.06573796000001}, map: map, icon: image, title: 'Shawmut'},
+		{'id':'Davis', position: {lat:42.39674,lng:-71.121815}, map: map, icon: image, title: 'Davis'},
+		{'id': 'Alewife', position: {lat:42.395428,lng:-71.142483}, map: map, icon: image, title: 'Alewife'},
+		{'id':'Kendal/MIT', position: {lat:42.36249079,lng:-71.08617653}, map: map, icon: image, title: 'Kendal\/MIT'},
+		{'id':'Charles/MGH', position: {lat:42.361166,lng:-71.070628}, map: map, icon:image, title: 'Charles/MGH'},
+		{'id':'Downtown Crossing',position:{lat:42.355518,lng:-71.060225},map:map,icon:image,title:'Downtown Crossing'},
+		{'id': 'Quincy Center',position: {lat:42.251809,lng:-71.005409}, map:map, icon: image, title: 'Quincy Center'},
+		{'id':'Quincy Adams',position: {lat:42.233391,lng: -71.007153}, map: map, icon: image, title: 'Quincy Adams'},
+		{'id':'Ashmont', position: {lat:42.284652,lng:-71.06448899999999}, map:map,icon:image, title:'Ashmont'},
+		{'id':'Wollaston',position: {lat:42.2665139 ,lng:-71.0203369}, map:map, icon:image, title:'Wollaston'},
+		{'id':'Fields Corner', position: {lat:42.300093,lng:-71.061667}, map:map, icon:image, title:'Fields Corner'},
+		{'id':'Centeral Suare',position: {lat:42.365486,lng:-71.103802}, map:map, icon:image, title:'Centeral Square'},
+		{'id':'Braintree',  position: {lat:42.2078543,lng:-71.0011385}, map:map, icon:image, title: 'Braintree'}]);
+		
+		for(var j=0;i<["TripList"]["Trips"].length; j++){
+		    if(text["TripList"]["Trips"][j]["Predictions"][0]["Stop"]==marker[i].title){
+             data21+="Next Red Line train to " + text["TripList"]["Trips"][i]["Predictions"][0]["Stop"] + ", From " + text["TripList"]["Trips"][i]["Destination"] + " will come in " + text["TripList"]["Trips"][i]["Predictions"][0]["Seconds"] + " seconds";}
+		}
+	    }
+		infowindows[i]=google.maps.event.addListener(marker[i],'click',function(){
+			infowindow.setContent(this.getTitle() + " " + data);
+			infowindow.open(map,this);
+		    });
+	    }
+
+	else if(data.readyState == 4 && data.status !=200){
+	    document.getElementById("map").innerHTML = "<p> Something has gone terribly wrong </p>"
+	}
+	else{
+		console.log("In progress...");
+	}
+
+	    data.send(null);
+    }
+
+
     //Define marker variable and create infowindow
     //South Station    
-    var marker = new google.maps.Marker({
+    /*  var marker = new google.maps.Marker({
 	    position: {lat:42.352, lng: -71.055},
 	    map: map,
 	    icon: image,
 	    title: "South Station"
 	});		 
+
+
 
     marker.setMap(map);
     data.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
@@ -129,7 +195,7 @@ function mapping() {
 	     });
     
     stationMarker.push(marker2.title);
-    data2.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
+        data2.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
     data2.onreadystatechange = function() {
 	if(data2.readyState == 4 && data2.status ==200){
 	    var info = data2.responseText;
@@ -666,7 +732,7 @@ function mapping() {
 		map: map,
 		icon:image,
 		title: "Ashmont"
-	    });
+           });
     stationMarker.push(marker18.title);
 	  
     data18.open("GET","https://powerful-depths-66091.herokuapp.com/redline.json", true);
@@ -824,7 +890,7 @@ function mapping() {
 	}
     };
     data22.send(null)
-
+    */
 	//Drawing lines between stations
 	
 	   var mbtaPathCoordinates1 = [
