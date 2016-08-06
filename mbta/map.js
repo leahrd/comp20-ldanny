@@ -85,7 +85,7 @@ function mapping() {
 
 		}
 		
-		infowindows[j]= new google.maps.event.addListener(marker[i],'click',function(){
+		infowindows[i]= new google.maps.event.addListener(marker[i],'click',function(){
 			    infowindows[i] = new google.maps.InfoWindow();
 			    infowindows[i].setContent(this.getTitle() + " " + data);
 			    infowindows[i].open(map,this);
