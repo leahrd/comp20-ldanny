@@ -38,4 +38,7 @@
 	  
     </ol>
 
+  <h3>Conclusion</h3>
+  <p>The issues found make it easy for attackers to make the site unusable.  Following the recommendations above will significantly reduce the effectiveness of these types of attacks.  All of the proposed improvements are easy to make but further investigation is necessary.  The use of tools such as Burp Suite could find further vulnerabilities and these might not be so easy to fix.  It is recommended that more extensive investigation is made beyond these basic attacks.  
+
 </html>
