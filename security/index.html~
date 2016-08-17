@@ -1,0 +1,30 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <title>Security Assessment of Not Foursquare</title>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <h1>Security Assessment of Not Foursquare</h1>
+  <h3>Introduction</h3>
+  <p>This assessment tests the security of the Not Foursquare web application.  This is a web application that takes in login and location parameters and provides them to the client.  However, this feature accounts for a major flaw that makes the application dangerous for public use.  The following document discusses the vulnerablilites found.</p>
+  
+  <h3>Methodology</h3>
+  <p>I first utilized black-box testing, meaning I tested the application with only information available to an attacker.   I ran the code locally and utilized curl in order to find vulnerabilities.  I then reviewed the code in order to better understand possible vulnerabilities.</p>
+
+  <h3>Abstract of Findings</h3>
+  <p>The root of the security issues I found was based on too much faith in user input.  There was an assumption that user input would be correct and thefefore there wasn't any attempt to restrict or check user input leaving the application open to malicious attacks.  These issues will need to be resolved before it is safe to deploy for public use, otherwise viruses and other malicious attacks are likely.</p>
+  
+  <h3>Issues Found</h3>
+  <ol>
+    <li><h4>Alert Popup</h4>
+      <p>I was able to implement three different instances of cross-site scripting.  Because there weren't any restrictions on login strings, I was able to insert an alert in the login parameter.  For example, running <xmp>curl --data "login=<script>alert('Hi');<script>&lat=10&lng=10" https://boiling-plataue-26702.herokuapp.com/sendLocation</xmp> followed by <xmp> curl -X GET "http://boiling-plataue-26702.herokuapp.com/checkins.json?login=<script>alert('Hi');</script>"</xmp> I was able to insert an alert popup.  While this might be very annoying, it doesn't pose a serious threat to the security of the application.  <img src=./popup.png>  <br>This issue could be resolved by validationg user input in both the POST and GET APIs before it can be added to the database and stopping insertion before it is added if it cannot be validated.  Because special characters are common in HTML and Javascript code that could pose a threat to the application, the user input could be filtered through a list of allowable characters and rejecting any input that contains characters such as '<, /, &, =, @,>'.  </p>
+      </li>
+    <li><h4>Inserted Image</h4>
+      <p>Additionally, I was able to insert an image via the POST and GET APIs by inserting HTML code in the login parameter.  Again, because this field is not validated in any way, I was able to insert malicous code that inserted an unwanted image.  While this example again is annoying, it points to a larger issue that this parameter is very easy to hack and more malicious code could very easily be implemented.  For example, running <xmp>curl --data "login-<img src = "http://dogbreedcartoon.com/dog-img/American-Eskimo-Dog.png">&lat=20&lng=20" https://boiling plateau-26702.herokuapp.com/sendLocation</xmp> followed by <xmp> curl -X GET "http://boiling-plataue-26702.herokuapp.com/checkins.json?login=<img src=http://dogbreedcartoon.com/dog-img/American-Eskimo-Dog.png>"</xmp>  <img src=./image.png> <br>This issue can be resolved using the same method as described above.   
+    </ol>
+
+</html>
